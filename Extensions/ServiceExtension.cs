@@ -16,10 +16,10 @@ public static class ServiceExtension
 
     public static void AddOpenAIService(this IServiceCollection services)
     {
-        services.AddScoped<IOpenAIService, OpenAIService>(provider => 
+        services.AddScoped<IOpenAIService, OpenAIService>(provider =>
         {
-            var apiKey = Environment.GetEnvironmentVariable("OpenAiApiKey");
-
+            var apiKey = Environment.GetEnvironmentVariable("OpenAiApiKey", EnvironmentVariableTarget.User);
+            
             ArgumentNullException.ThrowIfNull(apiKey, "OpenAiApiKey is not configured.");
 
             return new OpenAIService(new OpenAiOptions
